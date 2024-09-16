@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import Page from "../../components/Page/Page";
 import { FaPlay } from "react-icons/fa";
-import { getMovieDetail } from "../../api/movieApi";
 import { useQuery } from "@tanstack/react-query";
 import LikeMovieButton from "../../components/LikeMovieButton/LikeMovieButton";
+import { getMovieDetail } from "../../api/serverApi";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 

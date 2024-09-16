@@ -1,5 +1,4 @@
 // import styles from "./HomePage.module.scss";
-import { getHost } from "../../api/serverApi";
 import MoviesList from "../../components/MovieList/MoviesList";
 import Page from "../../components/Page/Page";
 
@@ -8,12 +7,6 @@ function HomePage() {
 	const CATEGORY_TOPRATED = "top_rated";
 	const CATEGORY_POPULAR = "popular";
 	const CATEGORY_UPCOMING = "upcoming";
-
-	(async () => {
-		const result = await getHost();
-		console.log("Server Communication Success:", result);
-		return result;
-	})();
 
 	return (
 		<Page>
