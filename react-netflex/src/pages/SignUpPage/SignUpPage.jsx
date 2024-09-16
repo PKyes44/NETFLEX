@@ -1,10 +1,9 @@
 import { useRef } from "react";
+import { signUp } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, useAuth } from "../../contexts/auth.context";
 
 function SignUpPage() {
 	const navigate = useNavigate();
-	const { processOnSignUp } = useAuth(AuthContext);
 	const idInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
 	const nicknameInputRef = useRef(null);
@@ -19,8 +18,9 @@ function SignUpPage() {
 			password,
 			nickname,
 		};
-		processOnSignUp(newMemberData);
-		navigate("/");
+		console.log("newMember: ", newMemberData);
+		signUp(newMemberData);
+		navigate("/log-in");
 	};
 
 	return (

@@ -1,4 +1,4 @@
-import { getMoviesOnCategory } from "../../api/serverApi";
+import { getMoviesOnCategory } from "../../api/movieApi";
 import MovieCard from "../MovieCard/MovieCard";
 import { useQuery } from "@tanstack/react-query";
 

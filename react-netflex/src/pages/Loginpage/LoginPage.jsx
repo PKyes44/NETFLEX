@@ -1,21 +1,25 @@
 import { useRef } from "react";
+import { logIn } from "../../api/authApi";
+import { useAuth } from "../../contexts/auth.context";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, useAuth } from "../../contexts/auth.context";
 
 function LoginPage() {
-	const { processOnLogIn } = useAuth(AuthContext);
 	const navigate = useNavigate();
+	const { logInByMember } = useAuth();
 	const idInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
 
-	const handleClickLoginButton = () => {
+	const handleClickLoginButton = async (event) => {
+		event.preventDefault();
+
 		const id = idInputRef.current.value;
 		const password = idInputRef.current.value;
-		const response = processOnLogIn({ id, password });
-		if (response === "로그인 실패") {
-			alert("로그인 실패");
-			return;
-		}
+
+		if (id.length === 0 || password.length === 0) return;
+
+		const responseMember = await logIn({ id, password });
+		console.log("responseMember: ", responseMember);
+		logInByMember(responseMember);
 		navigate("/");
 	};
 

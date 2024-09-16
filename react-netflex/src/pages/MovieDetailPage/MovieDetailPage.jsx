@@ -3,7 +3,7 @@ import Page from "../../components/Page/Page";
 import { FaPlay } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import LikeMovieButton from "../../components/LikeMovieButton/LikeMovieButton";
-import { getMovieDetail } from "../../api/serverApi";
+import { getMovieDetail } from "../../api/movieApi";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
