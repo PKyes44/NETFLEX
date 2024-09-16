@@ -1,8 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
 import { FaHeart } from "react-icons/fa";
+import { checkIsLikedMovie } from "../../api/movieApi";
+import { useEffect } from "react";
 // import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // import { checkIsLikedMovie, likeMovie, unlikeMovie } from "../../api/movieApi";
 
 function LikeMovieButton({ movieId }) {
+	const { data: isLiked } = useQuery({
+		initialData: false,
+		queryKey: ["isLikedMovie", { movieId }],
+		queryFn: (movieId) => checkIsLikedMovie(movieId),
+	});
+
+	useEffect(() => {
+		console.log("isLiked: ", isLiked);
+	}, [isLiked]);
+
 	// const queryClient = useQueryClient();
 	// const queryKey = ["isLikedMovie", { movieId }];
 	// const { data: isLiked } = useQuery({

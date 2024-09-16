@@ -27,3 +27,18 @@ export const getMoviesOnCategory = async (category) => {
 
 	return res.data;
 };
+
+export const getLikedMovies = async () => {
+	const url = "/movie-api/liked-movies";
+	const res = await serverClient.get(url);
+	console.log("likedMovies: ", res.data);
+
+	return res.data;
+};
+export const checkIsLikedMovie = async (movieId) => {
+	const url = `/movie-api/liked-movies/${movieId}`;
+	const res = await serverClient.get(url);
+	console.log("likedMovies: ", res.data);
+
+	return res.data;
+};
