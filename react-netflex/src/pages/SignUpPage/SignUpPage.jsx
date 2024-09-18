@@ -18,7 +18,6 @@ function SignUpPage() {
 			password,
 			nickname,
 		};
-		console.log("newMember: ", newMemberData);
 		signUp(newMemberData);
 		navigate("/log-in");
 	};

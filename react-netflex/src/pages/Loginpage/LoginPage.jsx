@@ -18,7 +18,6 @@ function LoginPage() {
 		if (id.length === 0 || password.length === 0) return;
 
 		const responseMember = await logIn({ id, password });
-		console.log("responseMember: ", responseMember);
 		logInByMember(responseMember);
 		navigate("/");
 	};

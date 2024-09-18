@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./auth.context";
+import { getLikedMoviesInApi, toggleLikedMovieInApi } from "../api/movieApi";
 
 const initMovieValue = {
 	likedMovieIds: [],
-	toggleLikeMovie: () => {},
-	checkIsLiked: () => {},
+	toggleLikeMovieInContext: () => {},
 };
 export const MovieContext = createContext(initMovieValue);
 
@@ -11,34 +12,42 @@ export const useMovies = () => useContext(MovieContext);
 
 export function MovieProvider({ children }) {
 	const [likedMovieIds, setLikedMovieIds] = useState([]);
-	// const { isLoggedIn } = useAuth(AuthContext);
+	const { isLoggedIn, currentMember } = useAuth();
 
-	const toggleLikeMovie = (movieId) => {
-		// if (!isLoggedIn) {
-		// 	alert("로그인하세요");
-		// 	return;
-		// }
-
-		const isLiked = likedMovieIds.includes(movieId);
-
-		let newLikedMovieIds = [];
-		if (isLiked) {
-			newLikedMovieIds = likedMovieIds.filter(
-				(likedMovieId) => likedMovieId !== movieId
-			);
-		} else {
-			newLikedMovieIds = [...likedMovieIds, movieId];
+	const toggleLikeMovieInContext = async (movieId) => {
+		if (!isLoggedIn) {
+			alert("로그인하세요");
+			return;
 		}
-		setLikedMovieIds(newLikedMovieIds);
+
+		if (
+			likedMovieIds.find((thisMovieId) => thisMovieId === movieId) ===
+			undefined
+		) {
+			setLikedMovieIds((prevLikedMovieIds) => {
+				return [...prevLikedMovieIds, movieId];
+			});
+		} else {
+			setLikedMovieIds((prevLikedMovieIds) => {
+				const newLikedMovieIds = prevLikedMovieIds.filter(
+					(thisMovieId) => thisMovieId !== movieId
+				);
+				return newLikedMovieIds;
+			});
+		}
+
+		await toggleLikedMovieInApi(currentMember.id, movieId);
 	};
-	const checkIsLiked = (movieId) => {
-		return likedMovieIds.includes(movieId);
-	};
+
+	useEffect(() => {
+		if (currentMember === null) return;
+		(async () =>
+			setLikedMovieIds(await getLikedMoviesInApi(currentMember.id)))();
+	}, [currentMember]);
 
 	const value = {
 		likedMovieIds,
-		checkIsLiked,
-		toggleLikeMovie,
+		toggleLikeMovieInContext,
 	};
 
 	return (

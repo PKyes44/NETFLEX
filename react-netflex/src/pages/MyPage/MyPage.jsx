@@ -1,22 +1,22 @@
 import Page from "../../components/Page/Page";
-import { MovieContext, useMovies } from "../../contexts/movie.context";
+import { useMovies } from "../../contexts/movie.context";
+import LikedMovieCard from "../../components/LikedMovieCard/LikedMovieCard";
 
 function MyPage() {
-	const { toggleLikeMovie, likedMovieIds } = useMovies(MovieContext);
+	const { likedMovieIds } = useMovies();
+
 	return (
 		<Page>
-			<h1>MYPAGE</h1>
-			<section>
+			<section className="flex flex-col gap-y-5">
 				<h2>좋아요를 누른 영화 목록</h2>
-				<ul>
-					{likedMovieIds.map((movieId) => (
-						<li key={movieId}>
-							<span>영화 {movieId}</span>
-							<button onClick={() => toggleLikeMovie(movieId)}>
-								좋아요 취소하기
-							</button>
-						</li>
-					))}
+				<ul className="flex gap-x-10 overflow-y-auto">
+					{likedMovieIds.map((movieId) => {
+						return (
+							<li key={movieId} className="flex flex-col gap-y-4">
+								<LikedMovieCard movieId={movieId} />
+							</li>
+						);
+					})}
 				</ul>
 			</section>
 		</Page>

@@ -3,6 +3,8 @@ import { createContext, useContext, useState } from "react";
 const initAuthValue = {
 	isLoggedIn: false,
 	currentMember: null,
+	logInByMember: () => {},
+	logOut: () => {},
 };
 export const AuthContext = createContext(initAuthValue);
 
@@ -12,7 +14,7 @@ export default function AuthProvider({ children }) {
 	const [currentMember, setCurrentMember] = useState(null);
 	const isLoggedIn = !!currentMember;
 
-	console.log(currentMember);
+	console.log("currentMember:", currentMember);
 
 	const logInByMember = (member) => {
 		setCurrentMember(member);

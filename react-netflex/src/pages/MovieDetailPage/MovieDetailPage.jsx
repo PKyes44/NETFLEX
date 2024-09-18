@@ -3,7 +3,7 @@ import Page from "../../components/Page/Page";
 import { FaPlay } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import LikeMovieButton from "../../components/LikeMovieButton/LikeMovieButton";
-import { getMovieDetail } from "../../api/movieApi";
+import { getMovieDetailInApi } from "../../api/movieApi";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -12,7 +12,7 @@ function MovieDetailPage() {
 	const { data: movieDetail, isLoading } = useQuery({
 		initialData: { genres: [] },
 		queryKey: ["movies", { movieId }],
-		queryFn: () => getMovieDetail(movieId),
+		queryFn: () => getMovieDetailInApi(movieId),
 	});
 
 	if (isLoading) return "로딩중";
